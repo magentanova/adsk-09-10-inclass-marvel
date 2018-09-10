@@ -64,7 +64,6 @@ interface ICharacterProps {
 
 class MarvelCharacterItem extends React.Component<ICharacterProps, {}> {
   public render() {
-    console.log(this.props)
     return (
       <li className="character-item">
         <h2 className="character-name">
