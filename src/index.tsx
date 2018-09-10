@@ -7,6 +7,5 @@ import registerServiceWorker from './registerServiceWorker';
 ReactDOM.render(
   <Page />,
   document.getElementById('root') as HTMLElement
-  // document.querySelector('.container')
 );
 registerServiceWorker();

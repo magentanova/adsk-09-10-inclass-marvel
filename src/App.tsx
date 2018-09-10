@@ -1,30 +1,61 @@
 import * as React from 'react';
 import './App.css';
 
-const fakeApiResults = [
-  {
-    name: "batman",
-    power: "hardware"
-  },
-  {
-    name: "superman",
-    power: "everything"
+// const fakeApiResults = [
+//   {
+//     name: "batman",
+//     power: "hardware"
+//   },
+//   {
+//     name: "superman",
+//     power: "everything"
+//   }
+// ]
+
+interface ICharacter {
+  id: number;
+  name: string;
+  thumbnail: {
+    path: string;
+    extension: string;
+  };
+}
+
+interface IAppState {
+  characters: ICharacter[]
+}
+
+class Page extends React.PureComponent<{},IAppState> {
+  public readonly state: IAppState;
+
+  constructor(props:{}) {
+    super(props);
+    this.state = {
+      characters: []
+    }
   }
-]
 
+  public componentDidMount() {
+    fetch('https://f8852929.ngrok.io/api/characters')
+      .then(resp => resp.json())
+      .then(resp => {
+        this.setState({
+          characters: resp.data.results
+        })
+      })
+  }
 
-class Page extends React.Component {
   public render() {
     return (
       <div className="characters-page">
         <MarvelHeader />
-        <MarvelListContainer characters={fakeApiResults} />
+        <MarvelListContainer characters={this.state.characters} />
       </div>
     )
   }
 }
 
-class MarvelHeader extends React.Component {
+class MarvelHeader extends React.PureComponent {
   public render() {
     return (
       <header>
@@ -35,11 +66,7 @@ class MarvelHeader extends React.Component {
   }
 }
 
-interface IListContainerProps {
-  characters: ICharacterProps[];
-}
-
-class MarvelListContainer extends React.Component<IListContainerProps, {}> {
+class MarvelListContainer extends React.PureComponent<IAppState, {}> {
   public render() {
     return (
       <ul className="characters-list-container">
@@ -47,9 +74,11 @@ class MarvelListContainer extends React.Component<IListContainerProps, {}> {
           // [<MarvelCharacterItem />,<MarvelCharacterItem /> ]
          this.props.characters.map(
            character => <MarvelCharacterItem 
-                          key={character.name}
+                          key={character.id}
+                          id={character.id}
                           name={character.name}
-                          power={character.power}/>
+                          thumbnail={character.thumbnail}
+                          />
          ) 
        } 
       </ul>
@@ -57,21 +86,13 @@ class MarvelListContainer extends React.Component<IListContainerProps, {}> {
   }
 }
 
-interface ICharacterProps {
-  name: string;
-  power: string;
-}
-
-class MarvelCharacterItem extends React.Component<ICharacterProps, {}> {
+class MarvelCharacterItem extends React.Component<ICharacter, {}> {
   public render() {
     return (
       <li className="character-item">
         <h2 className="character-name">
-          {this.props.name}
+          name: {this.props.name}
         </h2>
-        <p className="character-power">
-          {this.props.power}
-        </p>
       </li>
     )
   }
