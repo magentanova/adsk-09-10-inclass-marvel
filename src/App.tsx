@@ -26,7 +26,6 @@ interface IAppState {
 }
 
 class Page extends React.PureComponent<{},IAppState> {
-  public readonly state: IAppState;
 
   constructor(props:{}) {
     super(props);
@@ -86,10 +85,33 @@ class MarvelListContainer extends React.PureComponent<IAppState, {}> {
   }
 }
 
-class MarvelCharacterItem extends React.Component<ICharacter, {}> {
+interface ICharacterItemState {
+  selected: boolean;
+}
+
+class MarvelCharacterItem extends React.PureComponent<ICharacter,ICharacterItemState> {
+  public boundClicker:() => void;
+
+  constructor(props:ICharacter){
+    super(props);
+    this.state = {
+      selected: false
+    };
+    this.boundClicker = this.handleClick.bind(this);
+  }
+
+  public handleClick() {
+    this.setState({
+      selected: !this.state.selected
+    })
+  }
+
   public render() {
+
+    const classes = this.state.selected ? 'character-item selected' : 'character-item';
+
     return (
-      <li className="character-item">
+      <li onClick={this.boundClicker} className={classes}>
         <h2 className="character-name">
           name: {this.props.name}
         </h2>

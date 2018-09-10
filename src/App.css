@@ -31,6 +31,7 @@ li.character-item {
   border: 2px solid black;
   text-align: left;
   padding: 2rem;
+  cursor: pointer;
 }
 
 li.character-item p {
@@ -39,4 +40,8 @@ li.character-item p {
 
 li.character-item h2, li.character-item p {
   display: inline-block;
+}
+
+li.character-item.selected{
+  background-color: red;
 }
