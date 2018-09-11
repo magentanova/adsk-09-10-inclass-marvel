@@ -17,6 +17,6 @@ export interface ICharacter {
 
 export interface IAppState {
     characters: ICharacter[];
-    selectedCharacterId: -1;
+    selectedCharacterId: number;
   }
    
