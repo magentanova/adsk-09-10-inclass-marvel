@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { AnyAction } from 'redux';
 
 import './App.css';
 import { dispatch, store } from './state/store';
@@ -73,7 +74,7 @@ class MarvelHeader extends React.PureComponent {
 }
 
 interface IContainerProps extends IAppState {
-  dispatch: () => void;
+  dispatch: (action:AnyAction) => void;
 }
 
 // functional component. 
@@ -99,7 +100,7 @@ const MarvelListContainer = (props:IContainerProps) =>  (
 
 
 interface ICharacterItemProps extends ICharacter {
-  dispatch: () => void;
+  dispatch: (action:AnyAction) => void;
   selectedCharacterId: number;
 }
 
@@ -112,7 +113,7 @@ class MarvelCharacterItem extends React.PureComponent<ICharacterItemProps, {}> {
 
   public clickHandler() {
     // what do i do?
-    dispatch({
+    this.props.dispatch({
       payload: this.props.id,
       type: ActionTypes.SELECT_CHARACTER
     })
