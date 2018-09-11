@@ -2,8 +2,8 @@ import { ActionTypes, IAppState, ICharacter } from './types';
 
 const initialState:IAppState = {
     // count: 0, // not used, just an example!
-    selectedCharacterId: -1,
-    characters: []
+    characters: [],
+    selectedCharacterId: -1
 }
 
 export const selectedCharacterId = (state=initialState.selectedCharacterId, action:any):number => {

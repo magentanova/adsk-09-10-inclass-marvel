@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import './App.css';
-import store from './state/store';
-import { IAppState } from './state/types';
+import { dispatch, store } from './state/store';
+import { ActionTypes, IAppState, ICharacter } from './state/types';
 
 // const fakeApiResults = [
 //   {
@@ -18,6 +18,8 @@ import { IAppState } from './state/types';
 
 class Page extends React.PureComponent<{},IAppState> {
 
+  private unsubscribe: () => void;
+
   constructor(props:{}) {
     super(props);
     this.state = store.getState()
@@ -26,24 +28,34 @@ class Page extends React.PureComponent<{},IAppState> {
   public componentDidMount() {
     // any change to the store, i.e. any dispatched action, will trigger the callback 
       // passed in here. 
-    store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       this.setState(store.getState())
     })
 
     fetch('http://7cb45804.ngrok.io/api/characters')
       .then(resp => resp.json())
       .then(resp => {
-        this.setState({
-          characters: resp.data.results
+        store.dispatch({
+          payload: resp.data.results,
+          type: ActionTypes.CHARACTERS_LOADED
         })
       })
   }
 
+  public componentWillUnmount() {
+    this.unsubscribe()
+  }
+
   public render() {
+
+    const containerProps = {
+      ...this.state,
+      dispatch
+    }
     return (
       <div className="characters-page">
         <MarvelHeader />
-        <MarvelListContainer characters={this.state.characters} />
+        <MarvelListContainer {...containerProps} />
       </div>
     )
   }
@@ -60,58 +72,38 @@ class MarvelHeader extends React.PureComponent {
   }
 }
 
-interface IContainerState {
-  selectedCharacterId: number;
+interface IContainerProps extends IAppState {
+  dispatch: () => void;
 }
 
-class MarvelListContainer extends React.PureComponent<IAppState, IContainerState> {
-  public readonly state:IContainerState;
-
-  constructor(props:IAppState) {
-    super(props)
-    this.state = {
-      selectedCharacterId: -1
-    }
-    this.toggleSelectedImage = this.toggleSelectedImage.bind(this)
-  }
-
-  public toggleSelectedImage(id:number) {
-    this.setState({
-      selectedCharacterId: id
-    })
-  }
-
-  public render() {
-    return (
+// functional component. 
+// SFE (Stateless functional Component) 
+// use when you have no state, and no UI/event handlers
+const MarvelListContainer = (props:IContainerProps) =>  (
       <ul className="characters-list-container">
        {
           // [<MarvelCharacterItem />,<MarvelCharacterItem /> ]
-         this.props.characters.map(
+         props.characters.map(
            character => <MarvelCharacterItem 
                           key={character.id}
+                          dispatch={props.dispatch}
                           id={character.id}
                           name={character.name}
                           thumbnail={character.thumbnail}
-                          selectedCharacterId={this.state.selectedCharacterId}
-                          toggleSelectedImage={this.toggleSelectedImage}
+                          selectedCharacterId={props.selectedCharacterId}
                           />
          ) 
        } 
       </ul>
     )
-  }
-}
 
-interface ICharacterItemState {
-  selected: boolean;
-}
 
 interface ICharacterItemProps extends ICharacter {
+  dispatch: () => void;
   selectedCharacterId: number;
-  toggleSelectedImage: (id:number) => void;
 }
 
-class MarvelCharacterItem extends React.PureComponent<ICharacterItemProps,ICharacterItemState> {
+class MarvelCharacterItem extends React.PureComponent<ICharacterItemProps, {}> {
 
   constructor(props:ICharacterItemProps){
     super(props);
@@ -119,7 +111,11 @@ class MarvelCharacterItem extends React.PureComponent<ICharacterItemProps,IChara
   }
 
   public clickHandler() {
-    this.props.toggleSelectedImage(this.props.id)
+    // what do i do?
+    dispatch({
+      payload: this.props.id,
+      type: ActionTypes.SELECT_CHARACTER
+    })
   }
 
   public render() {
