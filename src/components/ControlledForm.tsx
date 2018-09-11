@@ -10,7 +10,7 @@ class ControlledForm extends React.PureComponent<{},IState> {
     constructor(props:{}) {
         super(props)
         this.state = {
-            email: '', 
+            email: 'initial_email', 
             password: '',
             username: ''
         };
@@ -18,9 +18,9 @@ class ControlledForm extends React.PureComponent<{},IState> {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    public handleChange(e:React.ChangeEvent) {
+    public handleChange(e:React.ChangeEvent<HTMLInputElement>) {
         const stateUpdate = {};
-        const target = e.target as any;
+        const target = e.target;
         stateUpdate[target.name] = target.value;
         this.setState(stateUpdate);
     }

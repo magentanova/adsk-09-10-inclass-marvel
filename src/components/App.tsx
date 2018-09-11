@@ -1,23 +1,12 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+// import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AnyAction } from 'redux';
 
-import './App.css';
-import ControlledForm from './ControlledForm';
-import { dispatch, store } from './state/store';
-import { ActionTypes, IAppState, ICharacter } from './state/types';
+import '../App.css';
 
-// const fakeApiResults = [
-//   {
-//     name: "batman",
-//     power: "hardware"
-//   },
-//   {
-//     name: "superman",
-//     power: "everything"
-//   }
-// ]
-
+import { dispatch, store } from '../state/store';
+import { ActionTypes, IAppState, ICharacter } from '../state/types';
+// import ControlledForm from './ControlledForm';
 
 class Page extends React.PureComponent<{},IAppState> {
 
@@ -43,6 +32,9 @@ class Page extends React.PureComponent<{},IAppState> {
           type: ActionTypes.CHARACTERS_LOADED
         })
       })
+    dispatch({
+      type: ActionTypes.CHARACTERS_LOADING
+    })
   }
 
   public componentWillUnmount() {
@@ -82,10 +74,12 @@ interface IContainerProps extends IAppState {
 // functional component. 
 // SFE (Stateless functional Component) 
 // use when you have no state, and no UI/event handlers
-const MarvelListContainer = (props:IContainerProps) =>  (
+const MarvelListContainer = (props:IContainerProps) =>  {
+  const gifClass = props.charactersLoading ? "loading-gif" : "loading-gif hidden"
+  return (
       <ul className="characters-list-container">
+      <img className={gifClass} src="images/loader.gif" />
        {
-          // [<MarvelCharacterItem />,<MarvelCharacterItem /> ]
          props.characters.map(
            character => <MarvelCharacterItem 
                           key={character.id}
@@ -99,7 +93,7 @@ const MarvelListContainer = (props:IContainerProps) =>  (
        } 
       </ul>
     )
-
+  }
 
 interface ICharacterItemProps extends ICharacter {
   dispatch: (action:AnyAction) => void;
@@ -139,14 +133,6 @@ class MarvelCharacterItem extends React.PureComponent<ICharacterItemProps, {}> {
   }
 }
 
-const App = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route path="/controlled-form" component={ControlledForm} />
-      <Route path="/" component={Page} />
-    </Switch>
-  </BrowserRouter>
-)
-export default App;
+export default Page;
 
 
