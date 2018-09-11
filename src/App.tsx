@@ -1,5 +1,8 @@
 import * as React from 'react';
+
 import './App.css';
+import store from './state/store';
+import { IAppState } from './state/types';
 
 // const fakeApiResults = [
 //   {
@@ -12,30 +15,22 @@ import './App.css';
 //   }
 // ]
 
-interface ICharacter {
-  id: number;
-  name: string;
-  thumbnail: {
-    path: string;
-    extension: string;
-  };
-}
-
-interface IAppState {
-  characters: ICharacter[]
-}
 
 class Page extends React.PureComponent<{},IAppState> {
 
   constructor(props:{}) {
     super(props);
-    this.state = {
-      characters: []
-    }
+    this.state = store.getState()
   }
 
   public componentDidMount() {
-    fetch('https://f8852929.ngrok.io/api/characters')
+    // any change to the store, i.e. any dispatched action, will trigger the callback 
+      // passed in here. 
+    store.subscribe(() => {
+      this.setState(store.getState())
+    })
+
+    fetch('http://7cb45804.ngrok.io/api/characters')
       .then(resp => resp.json())
       .then(resp => {
         this.setState({
