@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AnyAction } from 'redux';
 
 import './App.css';
+import ControlledForm from './ControlledForm';
 import { dispatch, store } from './state/store';
 import { ActionTypes, IAppState, ICharacter } from './state/types';
 
@@ -137,7 +139,14 @@ class MarvelCharacterItem extends React.PureComponent<ICharacterItemProps, {}> {
   }
 }
 
-
-export default Page;
+const App = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route path="/controlled-form" component={ControlledForm} />
+      <Route path="/" component={Page} />
+    </Switch>
+  </BrowserRouter>
+)
+export default App;
 
 
