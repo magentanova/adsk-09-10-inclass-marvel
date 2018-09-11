@@ -42,6 +42,9 @@ li.character-item h2, li.character-item p {
   display: inline-block;
 }
 
-li.character-item.selected{
-  background-color: red;
+li.character-item img.character-item-img {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
 }

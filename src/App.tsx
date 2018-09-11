@@ -65,7 +65,27 @@ class MarvelHeader extends React.PureComponent {
   }
 }
 
-class MarvelListContainer extends React.PureComponent<IAppState, {}> {
+interface IContainerState {
+  selectedCharacterId: number;
+}
+
+class MarvelListContainer extends React.PureComponent<IAppState, IContainerState> {
+  public readonly state:IContainerState;
+
+  constructor(props:IAppState) {
+    super(props)
+    this.state = {
+      selectedCharacterId: -1
+    }
+    this.toggleSelectedImage = this.toggleSelectedImage.bind(this)
+  }
+
+  public toggleSelectedImage(id:number) {
+    this.setState({
+      selectedCharacterId: id
+    })
+  }
+
   public render() {
     return (
       <ul className="characters-list-container">
@@ -77,6 +97,8 @@ class MarvelListContainer extends React.PureComponent<IAppState, {}> {
                           id={character.id}
                           name={character.name}
                           thumbnail={character.thumbnail}
+                          selectedCharacterId={this.state.selectedCharacterId}
+                          toggleSelectedImage={this.toggleSelectedImage}
                           />
          ) 
        } 
@@ -89,32 +111,35 @@ interface ICharacterItemState {
   selected: boolean;
 }
 
-class MarvelCharacterItem extends React.PureComponent<ICharacter,ICharacterItemState> {
-  public boundClicker:() => void;
+interface ICharacterItemProps extends ICharacter {
+  selectedCharacterId: number;
+  toggleSelectedImage: (id:number) => void;
+}
 
-  constructor(props:ICharacter){
+class MarvelCharacterItem extends React.PureComponent<ICharacterItemProps,ICharacterItemState> {
+
+  constructor(props:ICharacterItemProps){
     super(props);
-    this.state = {
-      selected: false
-    };
-    this.boundClicker = this.handleClick.bind(this);
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
-  public handleClick() {
-    this.setState({
-      selected: !this.state.selected
-    })
+  public clickHandler() {
+    this.props.toggleSelectedImage(this.props.id)
   }
 
   public render() {
 
-    const classes = this.state.selected ? 'character-item selected' : 'character-item';
+    const imageSource = this.props.thumbnail.path + `.` + this.props.thumbnail.extension;
+    const selected = this.props.id === this.props.selectedCharacterId;
+    const classes = selected ? 'character-item selected' : 'character-item';
+    const displayImage = selected ? <img className ="character-item-img" src={imageSource} /> : null;
 
     return (
-      <li onClick={this.boundClicker} className={classes}>
+      <li onClick={this.clickHandler} className={classes}>
         <h2 className="character-name">
           name: {this.props.name}
         </h2>
+        {displayImage}
       </li>
     )
   }
