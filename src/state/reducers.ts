@@ -10,12 +10,25 @@ const initialState:IAppState = {
     selectedCharacterId: -1
 }
 
-export const selectedCharacterId = (state=initialState.selectedCharacterId, action:AnyAction):number => {
+// reducerMap = {
+//     selectedCharacterId: selectedCharacterId,
+//     otherProp: otherProp
+// }
+
+/* tslint:ignore-next-line */
+// function dispatch(action) {
+//     for key in storeState:
+//         storeState.set({
+//             key: reducerMap[key](storeState[key],action)
+//         })
+// }
+
+export const selectedCharacterId = (stateVal=initialState.selectedCharacterId, action:AnyAction):number => {
     switch (action.type) {
         case ActionTypes.SELECT_CHARACTER:
             return action.payload
         default:
-            return state 
+            return stateVal
     }
 };
 
@@ -26,7 +39,7 @@ export const characterDetail = (state=initialState.characterDetail, action: AnyA
         default: 
             return state 
     }
-}
+};
 
 export const characters = (state=initialState.characters, action: AnyAction):ICharacter[] => {
     switch (action.type) {
@@ -35,7 +48,7 @@ export const characters = (state=initialState.characters, action: AnyAction):ICh
         default: 
             return state 
     }
-}
+};
 
 export const charactersLoading = (state=initialState.charactersLoading, action: AnyAction ) => {
     switch (action.type) {
@@ -46,7 +59,7 @@ export const charactersLoading = (state=initialState.charactersLoading, action: 
         default: 
             return state
     }
-}
+};
 
 // export const count = (state=initialState.count, action: AnyAction) => {
 //     switch (action.type) {
@@ -63,11 +76,4 @@ export const charactersLoading = (state=initialState.charactersLoading, action: 
 //     }
 // }
 
-// combinedReducers = {
-//     selectedCharacterId: selectedCharacterId,
-//     otherProp: otherProp
-// }
 
-// for (let prop in state) {
-//     combinedReducers[prop](initialState[prop], action)
-// }

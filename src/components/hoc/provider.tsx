@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 
-import { dispatch, store } from '../../state/store';
+import { store } from '../../state/store';
 import { IAppState } from '../../state/types';
 
 // write a function with the following signature:
@@ -11,35 +11,34 @@ import { IAppState } from '../../state/types';
         // input component.
 
 
-class Provider extends React.PureComponent<{},IAppState> {
-    public unsubscribe:() => void;
 
-    constructor(props:{}) {
-        super(props);
-        this.state = store.getState()
+const provide = (ComponentClass:React.ComponentClass) => (
+    class Provider extends React.PureComponent<{},IAppState> {
+        public unsubscribe:() => void;
+    
+        constructor(props:{}) {
+            super(props);
+            this.state = store.getState()
+        }
+    
+        public componentDidMount() {
+            this.unsubscribe = store.subscribe(() => {
+                this.setState(store.getState())
+            })
+        }
+    
+        public componentWillUnmount() {
+            this.unsubscribe();
+        }
+    
+        public render() {
+            return (
+                <div className="provider" >
+                    <ComponentClass {...this.state} />
+                </div>
+            )
+        }
     }
-
-    public componentDidMount() {
-        this.unsubscribe = store.subscribe(() => {
-            this.setState(store.getState())
-        })
-    }
-
-    public componentWillUnmount() {
-        this.unsubscribe();
-    }
-
-    public render() {
-        return (
-            <div className="provider" >
-                {this.props.children}
-            </div>
-        )
-    }
-}
-
-const provide = (component:React.Component) => (
-    <Provider >
-        {component}
-    </Provider>
 )
+
+export default provide
