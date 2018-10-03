@@ -23,3 +23,4 @@
 ## Notes to Instructor
 
   - It's not ideal to have that lightbox live within the CharacterItem component, but it serves the purpose of the exercise. 
+  - The Marvel API needs to be accessed from a server-side app, so I set up a proxy [here](https://marvel-proxy.herokuapp.com/api/characters).
