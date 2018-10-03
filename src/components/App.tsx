@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import CharacterDetailPage from './CharacterDetailPage';

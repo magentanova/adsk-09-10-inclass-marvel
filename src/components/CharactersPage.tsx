@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { AnyAction } from 'redux';
 
 import '../App.css';
 
 import { dispatch, store } from '../state/store';
-import { ActionTypes, IAppState, ICharacter } from '../state/types';
+import { ActionTypes, IAppState } from '../state/types';
 import CharacterItem from './CharacterItem/CharacterItem';
 
 class CharactersPage extends React.PureComponent<{},IAppState> {
@@ -24,7 +24,7 @@ class CharactersPage extends React.PureComponent<{},IAppState> {
       this.setState(store.getState())
     })
 
-    fetch('http://7cb45804.ngrok.io/api/characters')
+    fetch('https://marvel-proxy.herokuapp.com/api/characters')
       .then(resp => resp.json())
       .then(resp => {
         store.dispatch({
