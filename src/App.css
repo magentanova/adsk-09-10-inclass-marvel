@@ -30,3 +30,15 @@
     transform: rotate(360deg);
   }
 }
+
+ul {
+  text-align: left;
+}
+
+li.character-item {
+  cursor: pointer;
+}
+
+li.character-item img {
+  max-width: 150px
+}
