@@ -4,24 +4,44 @@ class CharacterItem extends React.PureComponent {
 
     constructor(props) {
         super(props)
-        this._handleClick = this._handleClick.bind(this)
     }
     
-    _handleClick(){
-        this.props.updateSelection(this.props.id)
+    _handleClick = () => {
+        const myId = this.props.id
+        const selectedId = this.props.selectedCharacter
+        if (myId === selectedId) {
+            this.props.dispatch({
+                type: "UNSELECT_CHARACTER"
+            })
+        }
+        else {
+            this.props.dispatch({
+                type: "SELECT_CHARACTER",
+                payload: this.props.id
+            })    
+        }
+    }
+
+    _handleDetailClick = () => {
+        this.props.history.push('/detail/' + this.props.id)
     }
 
     render() {
         const imgSrc = this.props.thumbnail.path + '.' + this.props.thumbnail.extension
         const imageToRender = this.props.selectedCharacter ===
             this.props.id ?
-            <img src={imgSrc} />
+                <div className="thumbnail-wrapper">
+                    <img src={imgSrc} />
+                    <button onClick={this._handleDetailClick} >
+                        detail
+                    </button>
+                </div>
             : 
             null
 
         return (
             <li     
-                onClick={this._handleClick}
+                onClick={this._handleClick.bind(this)}
                 className="character-item">
                 <p>name: {this.props.name}</p>
                 {imageToRender}

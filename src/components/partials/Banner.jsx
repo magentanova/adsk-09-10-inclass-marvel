@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Banner extends Component {
+
+class Banner extends React.PureComponent {
     render() {
         return (
             <div>

@@ -40,5 +40,18 @@ li.character-item {
 }
 
 li.character-item img {
-  max-width: 150px
+  max-width: 100%;
+}
+
+li.character-item .thumbnail-wrapper {
+  position: relative;
+  max-width: 150px;
+  display: inline-block;
+}
+
+li.character-item .thumbnail-wrapper button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
 }
