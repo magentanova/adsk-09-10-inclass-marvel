@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class CharacterItem extends React.PureComponent {
 
@@ -32,9 +33,9 @@ class CharacterItem extends React.PureComponent {
             this.props.id ?
                 <div className="thumbnail-wrapper">
                     <img src={imgSrc} />
-                    <button onClick={this._handleDetailClick} >
+                    <Link to={"/detail/" + this.props.id}>
                         detail
-                    </button>
+                    </Link>
                 </div>
             : 
             null

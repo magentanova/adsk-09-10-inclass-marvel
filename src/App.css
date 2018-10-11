@@ -49,9 +49,15 @@ li.character-item .thumbnail-wrapper {
   display: inline-block;
 }
 
-li.character-item .thumbnail-wrapper button {
+li.character-item .thumbnail-wrapper a {
   position: absolute;
   top: 0;
   right: 0;
   cursor: pointer;
+  padding: .25rem;
+  border: 1px solid black;
+  border-radius: 2px;
+  background: cornsilk;
+  text-decoration: none;
+  color: black;
 }
