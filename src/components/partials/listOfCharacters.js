@@ -46,8 +46,8 @@ const dummyData = {
 export default class extends React.Component {
 
     render() {
-        const charactersJSX = dummyData.characters.map( characterObj =>
-            <Character details={characterObj} />
+        const charactersJSX = dummyData.characters.map( (characterObj, i) =>
+            <Character key={characterObj.alias} details={characterObj} />
         )
         return (
             <div className="list-of-characters">
