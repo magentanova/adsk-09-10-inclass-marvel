@@ -1,5 +1,4 @@
 body {
-<<<<<<< HEAD
   font-size: 0;
   font-family: Helvetica;
 }
@@ -94,9 +93,3 @@ div.drawing-container {
   display: inline-block;
   text-align: left;
 }
-=======
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
->>>>>>> 4c41f5434aa9e124ae2dce9ac1dd1f7c00479b13

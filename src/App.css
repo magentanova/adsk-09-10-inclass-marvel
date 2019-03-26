@@ -4,7 +4,6 @@
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-<<<<<<< HEAD
   height: 40vmin;
   pointer-events: none;
 }
@@ -32,53 +31,3 @@
     transform: rotate(360deg);
   }
 }
-=======
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-header {
-  text-align: center;
-}
-
-li.character-item {
-  list-style: none;
-  border: 2px solid black;
-  text-align: left;
-  padding: 2rem;
-  cursor: pointer;
-}
-
-li.character-item p {
-  margin-left: 5rem;
-}
-
-li.character-item h2, li.character-item p {
-  display: inline-block;
-}
-
-li.character-item img.character-item-img {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-}
-
-.hidden {
-  display: none;
-}
->>>>>>> 4c41f5434aa9e124ae2dce9ac1dd1f7c00479b13
