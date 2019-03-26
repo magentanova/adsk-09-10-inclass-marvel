@@ -1,4 +1,4 @@
-# Marvel Explorer (inclass demo)
+# Marvel Explorer: With Routing
 
 ## How to Run
 
@@ -8,19 +8,15 @@
 
 ## Learning Objectives
   
-  - Compose JSX
-  - Understand React components
-  - Understand React props
-  - Understand React state
-  - Practice "lifting" state and interrogate the question of state "ownership"
+  - Understand the benefits and possible drawbacks of single-page routing
+  - Implement single-page routing with React Router
+  - Review React fundamentals and Redux state management
 
 ## App requirements
 
   - As a Marvel fan, I want to view a list of the most recently updated Marvel characters. 
   - As a Marvel fan, I want to click a character's name and see that character's thumbnail image in a lightbox centered on the page.
   - When I click a different character's name, that character's thumbnail should replace the previous one in that centered lightbox.
+  - While data is loading, I should see a loading gif in place of my character list. 
+  - **A character thumbnail should appear with a `view detail` link. Clicking on that link should take me to a detail page unique to the character**
 
-## Notes to Instructor
-
-  - It's not ideal to have that lightbox live within the CharacterItem component, but it serves the purpose of the exercise. 
-  - The Marvel API needs to be accessed from a server-side app, so I set up a proxy [here](https://marvel-proxy.herokuapp.com/api/characters).
