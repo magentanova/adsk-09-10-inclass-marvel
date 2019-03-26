@@ -1,7 +1,6 @@
 import React from 'react';
 
 import CharactersPage from './components/pages/charactersPage';
-import logo from './logo.svg';
 import './App.css';
 
 
