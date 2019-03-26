@@ -1,14 +1,95 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-size: 0;
+  font-family: Helvetica;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+h1 {
+  text-align: center;
+  font-size: 36px;
+}
+
+img {
+  max-width: 100%;
+}
+
+p {
+  font-size: 14px;
+}
+
+div.drawing-container {
+  font-size: 18px;
+}
+
+.box {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  display: inline-block;
+}
+
+.color {
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border: 2px solid black;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.6;
+}
+
+.color.active {
+  opacity: 1;
+}
+
+.drawing-container {
+  width: 725px;
+  margin: 0 auto;
+  user-select: none;
+}
+
+.palette {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.color.red {
+  background: red;
+}
+.color.green {
+  background: green;
+}
+.color.blue {
+  background: blue;
+}
+.color.black {
+  background: black;
+}
+.color.grey {
+  background: grey;
+}
+.color.brown {
+  background: brown;
+}
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.characters-page {
+  text-align: left;
+}
+
+/* character details */
+
+.character .headshot-wrapper {
+  display: inline-block;
+  width: 20%;
+}
+
+.character .info-wrapper {
+  margin-left: 2rem;
+  display: inline-block;
+  text-align: left;
 }
