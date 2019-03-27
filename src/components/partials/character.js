@@ -11,7 +11,9 @@ export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            expanded: false
+            expanded: false,
+            focussed: false,
+            order: this.props.order
         }
         this.toggleExpand = this.toggleExpand.bind(this);
     }
@@ -25,19 +27,18 @@ export default class extends React.Component {
     render() {
         const characterExpandedClass = `character-expanded ${this.state.expanded ? "" : "hidden"}`
         return (
-            <div className="character">
+            <div className="character" >
                 <div className="character-label">
-                    <span>{this.props.details.alias}</span>
+                    <span>{this.props.name}</span>
                     <button onClick={this.toggleExpand} >{this.state.expanded ? "-" : "+"}</button>
                 </div>
                 <div className={characterExpandedClass}>
                     <div className="headshot-wrapper">
-                        <img src={this.props.details.headshot} />
+                        <img src={`${this.props.thumbnail.path}.${this.props.thumbnail.extension}`} />
                     </div>
                     <div className="info-wrapper">
-                        <p className="info real-name"><strong>real name</strong>: {this.props.details.real_name}</p>
-                        <p className="info alias"><strong>alias</strong>: {this.props.details.alias}</p>
-                        <p className="info power"><strong>power</strong>: {this.props.details.power}</p>
+                        <p className="info name"><strong>name</strong>: {this.props.name}</p>
+                        <p className="info description"><strong>description</strong>: {this.props.description}</p>
                     </div>
                 </div>
             </div>
@@ -66,4 +67,3 @@ export default class extends React.Component {
 
 // export default Character
 
-export const foo = "bar";
