@@ -15,7 +15,12 @@ export default class extends React.Component {
             focussed: false,
             order: this.props.order
         }
+        this.imgClickHandler = this.imgClickHandler.bind(this);
         this.toggleExpand = this.toggleExpand.bind(this);
+    }
+
+    imgClickHandler(e) {
+        // need redux
     }
 
     toggleExpand(e) {
@@ -34,7 +39,10 @@ export default class extends React.Component {
                 </div>
                 <div className={characterExpandedClass}>
                     <div className="headshot-wrapper">
-                        <img src={`${this.props.thumbnail.path}.${this.props.thumbnail.extension}`} />
+                        <img 
+                            onClick={this.imgClickHandler}
+                            src={`${this.props.thumbnail.path}.${this.props.thumbnail.extension}`} 
+                        />
                     </div>
                     <div className="info-wrapper">
                         <p className="info name"><strong>name</strong>: {this.props.name}</p>

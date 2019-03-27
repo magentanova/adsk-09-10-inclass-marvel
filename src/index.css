@@ -15,69 +15,29 @@ p {
   font-size: 14px;
 }
 
-div.drawing-container {
-  font-size: 18px;
-}
 
-.box {
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  border: 1px solid black;
-  display: inline-block;
-}
-
-.color {
-  cursor: pointer;
-  width: 35px;
-  height: 35px;
-  border: 2px solid black;
-  border-radius: 50%;
-  display: inline-block;
-  opacity: 0.6;
-}
-
-.color.active {
-  opacity: 1;
-}
-
-.drawing-container {
-  width: 725px;
-  margin: 0 auto;
-  user-select: none;
-}
-
-.palette {
-  text-align: center;
-  margin-top: 15px;
-}
-
-.color.red {
-  background: red;
-}
-.color.green {
-  background: green;
-}
-.color.blue {
-  background: blue;
-}
-.color.black {
-  background: black;
-}
-.color.grey {
-  background: grey;
-}
-.color.brown {
-  background: brown;
-}
-
+/* page styles */
 .page {
   max-width: 900px;
   margin: 0 auto;
 }
 
+/* character list page */
+
 .characters-page {
   text-align: left;
+}
+
+.page-content {
+  display: flex;
+}
+
+.left-sidebar {
+  flex: 1;
+}
+
+.right-sidebar {
+  flex: 2;
 }
 
 /* character details */

@@ -2,10 +2,10 @@ import React from 'react';
 
 // import { marvelEndpointBase, marvelCharacterListEndpoint }  from "../../config";
 import * as config from "../../config";
-import TopBar from '../partials/topBar';
-import ListOfCharacters from '../partials/listOfCharacters';
-import LoadingGif from "../partials/loadingGif";
+import CharacterDetail from '../partials/characterDetail';
 import CharacterListMetadata from '../partials/characterListMetadata';
+import ListOfCharacters from '../partials/listOfCharacters';
+import TopBar from '../partials/topBar';
 import { parseMarvelResponse } from '../../helpers';
 
 export default class CharactersPage extends React.Component {
@@ -19,10 +19,15 @@ export default class CharactersPage extends React.Component {
     state = {
         characterList: [],
         dataLoaded: false,
+        detailCharacter: {
+            thumbnail: {},
+        },
         metadata: {}
     }
 
     componentDidMount() {
+        store.onChange(newState => this.setState(newState));
+
         fetch(`${config.marvelEndpointBase}/${config.marvelCharacterListEndpoint}`)
             .then(resp => resp.json())
             .then(json => {
@@ -30,6 +35,7 @@ export default class CharactersPage extends React.Component {
                 this.setState({
                     characterList,
                     dataLoaded: true,
+                    detailCharacter: characterList[0],
                     metadata,
                 })
             });
@@ -39,8 +45,15 @@ export default class CharactersPage extends React.Component {
         return (
             <div className="page characters-page">
                 <TopBar />
-                <CharacterListMetadata loaded={this.state.dataLoaded} {...this.state.metadata} />,
-                <ListOfCharacters loaded={this.state.dataLoaded} characterList={this.state.characterList} />
+                <div className="page-content">
+                    <div className="left-sidebar" >
+                        <CharacterListMetadata loaded={this.state.dataLoaded} {...this.state.metadata} />
+                        <ListOfCharacters loaded={this.state.dataLoaded} characterList={this.state.characterList} />
+                    </div>
+                    <div className="right-sidebar" >
+                        <CharacterDetail loaded={this.state.dataLoaded} {...this.state.detailCharacter}  />
+                    </div>
+                </div>
             </div>
         )
     }

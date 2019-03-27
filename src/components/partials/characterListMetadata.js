@@ -10,4 +10,4 @@ const CharacterListMetaData = props =>
 
 // export default withLoader(CharacterListMetaData);
 
-export default CharacterListMetaData;
+export default withLoader(CharacterListMetaData);

@@ -3,43 +3,6 @@ import React from 'react';
 import withLoader from '../hocs/withLoader';
 import Character from './character';
 
-// const dummyData = {
-//     metadata: {
-//         character_count: 50,
-//         page_no: 1,
-//         last_page: 97,
-//         status_code: 200,
-//         total_characters: 4982
-//     },
-//     characters: [
-//         {
-//             real_name: "Peter Parker",
-//             alias: "Spider Man", 
-//             power: "spider webs and stuff",
-//             headshot: "https://via.placeholder.com/300" 
-//         },
-//         {
-//             real_name: "Eddie Brock",
-//             alias: "Venom", 
-//             power: "has a parasite",
-//             headshot: "https://via.placeholder.com/300" 
-//         },
-//         {
-//             real_name: "Otto Octavius",
-//             alias: "Doctor Octopus", 
-//             power: "metal arms",
-//             headshot: "https://via.placeholder.com/300" 
-//         },
-//         {
-//             real_name: "Wade Wilson",
-//             alias: "Deadpool", 
-//             power: "funny. crazy. can't get hurt or die.",
-//             headshot: "https://via.placeholder.com/300" 
-//         },
-//     ]
-// }
-
-
 class ListOfCharacters extends React.Component {
 
     render() {
