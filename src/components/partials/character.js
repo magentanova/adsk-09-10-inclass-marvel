@@ -10,10 +10,9 @@ import React from 'react';
 export default class extends React.Component {
     constructor(props) {
         super(props);
+        // vvv local ui state still okay vvv 
         this.state = {
             expanded: false,
-            focussed: false,
-            order: this.props.order
         }
         this.imgClickHandler = this.imgClickHandler.bind(this);
         this.toggleExpand = this.toggleExpand.bind(this);
