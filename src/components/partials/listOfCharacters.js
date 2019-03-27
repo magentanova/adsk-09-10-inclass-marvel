@@ -1,5 +1,6 @@
 import React from 'react';
 
+import withLoader from '../hocs/withLoader';
 import Character from './character';
 
 // const dummyData = {
@@ -39,7 +40,7 @@ import Character from './character';
 // }
 
 
-export default class extends React.Component {
+class ListOfCharacters extends React.Component {
 
     render() {
         const charactersJSX = this.props.characterList.map( (characterObj, i) =>
@@ -53,5 +54,6 @@ export default class extends React.Component {
     }
 }
 
+export default withLoader(ListOfCharacters);
 // React.createElement(Character, {...props}, /*children*/);
 // const character = new Character();

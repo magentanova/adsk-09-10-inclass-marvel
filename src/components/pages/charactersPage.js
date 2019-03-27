@@ -36,17 +36,11 @@ export default class CharactersPage extends React.Component {
     }
 
     render() {
-        let toRender = <LoadingGif />
-        if (this.state.dataLoaded) {
-            toRender = [
-                <CharacterListMetadata {...this.state.metadata} />,
-                <ListOfCharacters characterList={this.state.characterList} />
-            ]
-        }
         return (
             <div className="page characters-page">
                 <TopBar />
-                {toRender}
+                <CharacterListMetadata loaded={this.state.dataLoaded} {...this.state.metadata} />,
+                <ListOfCharacters loaded={this.state.dataLoaded} characterList={this.state.characterList} />
             </div>
         )
     }
