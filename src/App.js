@@ -1,7 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import ConnectedCharactersPage from './components/pages/charactersPage';
+import HomePage from './components/pages/homePage';
 import './App.css';
 import store from './state/store';
 
@@ -18,11 +20,13 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store} >
-        <div className="App">
-          <ConnectedCharactersPage />
-          {/* Canvas
-          {Canvas} */}
-        </div>
+        <Router >
+          <div>
+            <Route path="/characters" component={ConnectedCharactersPage} />
+            <Route path="/home" component={HomePage} />
+            <Route path="/" exact component={ConnectedCharactersPage} />
+          </div>
+        </Router>
       </Provider>
     );
   }

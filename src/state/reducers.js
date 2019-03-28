@@ -10,36 +10,53 @@ const initialState = {
     metadataLoading: false
 }
 
-export const reducer = (oldState=initialState, action) => {
+export const characterList = ( oldState = initialState.characterList, action ) => {
     switch (action.type) {
         case actionTypes.CHARACTERS_LOADED:
-            return {
-                ...oldState,
-                characterList: action.payload,
-                characterListLoading: false
-            }
-        case actionTypes.CHARACTERS_REQUESTED:
-            return {
-                ...oldState,
-                characterListLoading: true
-            }
-        case actionTypes.DETAIL_CHARACTER_SELECTED:
-            return {
-                ...oldState,
-                detailCharacter: action.payload
-            }
-        case actionTypes.METADATA_LOADED:
-            return {
-                ...oldState,
-                metadata: action.payload,
-                metadataLoading: false
-            }
-        case actionTypes.METADATA_REQUESTED:
-            return {
-                ...oldState,
-                metadataLoading: true
-            }
+            return action.payload
         default: 
-            return oldState 
+            return oldState
+    }
+}
+
+export const characterListLoading = ( oldState = initialState.characterListLoading, action ) => {
+    switch (action.type) {
+        case actionTypes.CHARACTERS_LOADED:
+            return false
+        case actionTypes.CHARACTERS_REQUESTED:
+            return true
+        default: 
+            return oldState
+    }
+}
+
+export const detailCharacter = ( oldState = initialState.detailCharacter, action ) => {
+    switch (action.type) {
+        case actionTypes.DETAIL_CHARACTER_SELECTED:
+            return action.payload
+        default: 
+            return oldState
+    }
+}
+
+export const metadata = ( oldState = initialState.metadata, action ) => {
+    switch (action.type) {
+        case actionTypes.METADATA_LOADED:
+            return false
+        case actionTypes.METADATA_REQUESTED:
+            return true
+        default: 
+            return oldState
+    }
+}
+
+export const metadataLoading = ( oldState = initialState.metadataLoading, action ) => {
+    switch (action.type) {
+        case actionTypes.METADATA_LOADED:
+            return false
+        case actionTypes.METADATA_REQUESTED:
+            return true
+        default: 
+            return oldState
     }
 }
