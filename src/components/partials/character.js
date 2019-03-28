@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // {
 //     real_name: "Wade Wilson",
@@ -7,7 +8,13 @@ import React from 'react';
 //     headshot: "https://via.placeholder.com/300" 
 // },
 
-export default class extends React.Component {
+const propTypes = {
+    name: PropTypes.string.isRequired,
+    thumbnail: PropTypes.object.isRequired,
+    description: PropTypes.string.isRequired
+}
+
+class Character extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,7 +59,6 @@ export default class extends React.Component {
             </div>
         )
     }
-
 }
 
 
@@ -75,3 +81,7 @@ export default class extends React.Component {
 
 // export default Character
 
+
+Character.propTypes = propTypes;
+
+export default Character;
