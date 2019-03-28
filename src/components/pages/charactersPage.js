@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 // import { marvelEndpointBase, marvelCharacterListEndpoint }  from "../../config";
 import actionTypes from "../../state/actionTypes";
@@ -8,67 +9,14 @@ import CharacterListMetadata from '../partials/characterListMetadata';
 import ListOfCharacters from '../partials/listOfCharacters';
 import TopBar from '../partials/topBar';
 import { parseMarvelResponse } from '../../helpers';
-import store from '../../state/store';
 
-export default class CharactersPage extends React.Component {
-    // constructor(props) {
-    //     super(props)
-    //     this.state = {}
-    // }
-
-    // ^^ same as ^^
-
-    state = store.getState();
-
+class CharactersPage extends React.Component {
     componentDidMount() {
-        this.unsubscribe = store.subscribe(() => {
-            this.setState( store.getState() )
-        })
-        // vv works something like this... vv
-        // store.subscribe = function(callbackFunc) {
-        //     changeSubscribers.push(callbackFunc)
-        // }
-
-        // store.setState = function(newState) {
-        //     store.mergeNewState(newState)
-        //     for (subscriber in changeSubscribers) {
-        //         subscriber()
-        //     }
-        // }
-
         fetch(`${config.marvelEndpointBase}/${config.marvelCharacterListEndpoint}`)
             .then(resp => resp.json())
-            .then(json => {
-                const { metadata, characterList } = parseMarvelResponse(json);
-                // input to dispatch is an "action".
-                    // one mandatory property: type
-                    // optional property: payload
-                // this is just convention
-                store.dispatch({
-                    type: actionTypes.METADATA_LOADED,
-                    payload: metadata               
-                })
-                store.dispatch({
-                    type: actionTypes.CHARACTERS_LOADED,
-                    payload: characterList
-                })
-                store.dispatch({
-                    type: actionTypes.DETAIL_CHARACTER_SELECTED,
-                    payload: characterList[0]
-                })
-            });
-        store.dispatch({
-            type: actionTypes.METADATA_REQUESTED
-        })
-        store.dispatch({
-            type: actionTypes.CHARACTERS_REQUESTED
-        })
-            
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
+            .then(this.props.onFetchResolve);
+        this.props.onFetchStart();
+        }
 
     render() {
         return (
@@ -77,20 +25,65 @@ export default class CharactersPage extends React.Component {
                 <div className="page-content">
                     <div className="panel left-panel" >
                         <CharacterListMetadata 
-                            loaded={!this.state.metadataLoading} 
-                            {...this.state.metadata} />
+                            loaded={!this.props.metadataLoading} 
+                            />
                         <ListOfCharacters 
-                            dispatch={store.dispatch.bind(store)} 
-                            loaded={!this.state.characterListLoading} 
-                            characterList={this.state.characterList} />
+                            loaded={!this.props.characterListLoading} 
+                            />
                     </div>
                     <div className="panel right-panel" >
                         <CharacterDetail 
-                            loaded={!this.state.characterListLoading} 
-                            {...this.state.detailCharacter}  />
+                            loaded={!this.props.characterListLoading} 
+                            />
                     </div>
                 </div>
             </div>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        characterListLoading: state.characterListLoading,
+        metadataLoading: state.metadataLoading
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchStart: () => {
+            dispatch({
+                type: actionTypes.METADATA_REQUESTED
+            })
+            dispatch({
+                type: actionTypes.CHARACTERS_REQUESTED
+            })
+        },
+        onFetchResolve: json => {
+            const { metadata, characterList } = parseMarvelResponse(json);
+            // input to dispatch is an "action".
+            //     one mandatory property: type
+            //     optional property: payload
+            // this is just convention
+            dispatch({
+                type: actionTypes.METADATA_LOADED,
+                payload: metadata               
+            })
+            dispatch({
+                type: actionTypes.CHARACTERS_LOADED,
+                payload: characterList
+            })
+            dispatch({
+                type: actionTypes.DETAIL_CHARACTER_SELECTED,
+                payload: characterList[0]
+            })
+        }
+    }
+}
+
+const ConnectedPage = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CharactersPage)
+
+export default ConnectedPage;

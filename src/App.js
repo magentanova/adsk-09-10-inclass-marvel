@@ -1,7 +1,9 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 
-import CharactersPage from './components/pages/charactersPage';
+import ConnectedCharactersPage from './components/pages/charactersPage';
 import './App.css';
+import store from './state/store';
 
 
 
@@ -15,11 +17,13 @@ import './App.css';
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <CharactersPage />
-        {/* Canvas
-        {Canvas} */}
-      </div>
+      <Provider store={store} >
+        <div className="App">
+          <ConnectedCharactersPage />
+          {/* Canvas
+          {Canvas} */}
+        </div>
+      </Provider>
     );
   }
 }

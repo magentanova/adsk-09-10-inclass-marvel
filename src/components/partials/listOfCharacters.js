@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import withLoader from '../hocs/withLoader';
 import Character from './character';
@@ -8,9 +9,9 @@ class ListOfCharacters extends React.Component {
     render() {
         const charactersJSX = this.props.characterList.map( (characterObj, i) =>
             <Character 
-                dispatch={this.props.dispatch}
                 key={characterObj.id} 
-                {...characterObj}  />
+                {...characterObj}  
+                />
         )
         return (
             <div className="list-of-characters">
@@ -20,6 +21,9 @@ class ListOfCharacters extends React.Component {
     }
 }
 
-export default withLoader(ListOfCharacters);
-// React.createElement(Character, {...props}, /*children*/);
-// const character = new Character();
+
+export default connect(
+    state => ({
+        characterList: state.characterList
+    })
+)(withLoader(ListOfCharacters));

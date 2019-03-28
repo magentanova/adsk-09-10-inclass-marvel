@@ -1,27 +1,26 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import actionTypes from "../../state/actionTypes";
-
 
 class Character extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
             expanded: false,
-            focussed: false,
-            order: this.props.order
         }
-        this.imgClickHandler = this.imgClickHandler.bind(this);
         this.toggleExpand = this.toggleExpand.bind(this);
-    }
+        }
 
-    imgClickHandler(e) {
-        // need redux
-        this.props.dispatch({
-            type: actionTypes.DETAIL_CHARACTER_SELECTED,
-            payload: this.props
-        })
-    }
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        thumbnail: PropTypes.shape({
+            path: PropTypes.string.isRequired,
+            extension: PropTypes.string.isRequired
+        }).isRequired,
+        description: PropTypes.string.isRequired
+    }    
 
     toggleExpand(e) {
         this.setState({
@@ -40,7 +39,7 @@ class Character extends React.PureComponent {
                 <div className={characterExpandedClass}>
                     <div className="headshot-wrapper">
                         <img 
-                            onClick={this.imgClickHandler}
+                            onClick={this.props.onImgClick}
                             src={`${this.props.thumbnail.path}.${this.props.thumbnail.extension}`} 
                         />
                     </div>
@@ -54,24 +53,18 @@ class Character extends React.PureComponent {
     }
 }
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        onImgClick: () => {
+            dispatch({
+                type: actionTypes.DETAIL_CHARACTER_SELECTED,
+                payload: ownProps
+            })
+        }
+    }
+}
 
-// vvv same as vvv
-
-// function Character(props) {
-//     return (
-//         <div className="character">
-//             <div className="headshot-wrapper">
-//                 <img src />
-//             </div>
-//             <div className="info-wrapper">
-//                 <p className="info real-name">{props.details.real_name}</p>
-//                 <p className="info alias"></p>
-//                 <p className="info power"></p>
-//             </div>
-//         </div>
-//     )
-// }
-
-// export default Character
-
-export default Character;
+export default connect(
+    null,
+    mapDispatchToProps
+)(Character);

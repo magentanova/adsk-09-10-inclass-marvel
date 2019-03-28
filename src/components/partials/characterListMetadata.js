@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { connect } from 'react-redux'
 import withLoader from '../hocs/withLoader';
 
 const CharacterListMetaData = props => 
@@ -8,6 +8,23 @@ const CharacterListMetaData = props =>
         <p>Showing {props.count} results of {props.total}.</p>
     </div>
 
+// export default withLoader(
+//     connect(
+//         state => state.metadata
+//     )(CharacterListMetaData)
+// )
+
+// vvv same as below vvv
+
 // export default withLoader(CharacterListMetaData);
 
-export default withLoader(CharacterListMetaData);
+const Loaderized = withLoader(CharacterListMetaData);
+
+const mapStateToProps = state => state.metadata
+
+const ConnectedAndLoaderizedCharacterListMetaData = 
+    connect(
+        mapStateToProps
+    )(Loaderized)
+    
+export default ConnectedAndLoaderizedCharacterListMetaData;
