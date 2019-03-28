@@ -19,10 +19,32 @@ p {
 /* page styles */
 .page {
   max-width: 900px;
-  margin: 0 auto;
+  margin: 4rem auto;
+}
+
+/* nav-bar */
+
+.nav-bar { 
+  text-align: center;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1.5px solid #222;
+}
+.nav-bar a {
+  background: #222;
+  color: white;
+  padding: .5rem 1rem;
+  text-decoration: none;
 }
 
 /* character list page */
+
+.character-list-metadata {
+  border: 1.5px solid #222;
+  padding: .5rem 1rem;
+  margin-bottom: 2rem;
+}
 
 .characters-page {
   text-align: left;
@@ -32,15 +54,33 @@ p {
   display: flex;
 }
 
-.left-sidebar {
+.panel {
+  padding: 2rem;
+}
+
+.left-panel {
   flex: 1;
 }
 
-.right-sidebar {
+.right-panel {
   flex: 2;
 }
 
 /* character details */
+
+.character .character-label {
+  margin-bottom: 1rem;
+}
+
+.character .character-label button {
+  float: right;
+  background: #222;
+  color: white;
+}
+
+.character-label button:active, .character-label button:focus {
+  outline: none;
+}
 
 .character .headshot-wrapper {
   display: inline-block;
@@ -54,11 +94,6 @@ p {
 }
 
 /* nav bar */
-
-.nav-bar {
-  text-align: center;
-  margin-bottom: 3rem;
-}
 
 .nav-bar a {
   margin: 1rem;

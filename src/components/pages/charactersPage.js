@@ -45,11 +45,11 @@ export default class CharactersPage extends React.Component {
             <div className="page characters-page">
                 <TopBar />
                 <div className="page-content">
-                    <div className="left-sidebar" >
+                    <div className="panel left-panel" >
                         <CharacterListMetadata loaded={this.state.dataLoaded} {...this.state.metadata} />
                         <ListOfCharacters loaded={this.state.dataLoaded} characterList={this.state.characterList} />
                     </div>
-                    <div className="right-sidebar" >
+                    <div className="panel right-panel" >
                         <CharacterDetail loaded={this.state.dataLoaded} {...this.state.detailCharacter}  />
                     </div>
                 </div>
