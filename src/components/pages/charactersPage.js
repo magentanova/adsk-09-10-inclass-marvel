@@ -26,7 +26,6 @@ export default class CharactersPage extends React.Component {
     }
 
     componentDidMount() {
-        store.onChange(newState => this.setState(newState));
 
         fetch(`${config.marvelEndpointBase}/${config.marvelCharacterListEndpoint}`)
             .then(resp => resp.json())
