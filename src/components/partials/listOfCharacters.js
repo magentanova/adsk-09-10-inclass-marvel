@@ -7,7 +7,10 @@ class ListOfCharacters extends React.Component {
 
     render() {
         const charactersJSX = this.props.characterList.map( (characterObj, i) =>
-            <Character key={characterObj.id} {...characterObj} />
+            <Character 
+                dispatch={this.props.dispatch}
+                key={characterObj.id} 
+                {...characterObj}  />
         )
         return (
             <div className="list-of-characters">

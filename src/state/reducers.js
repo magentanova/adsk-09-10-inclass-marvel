@@ -1,28 +1,43 @@
+import actionTypes from './actionTypes';
+
 const initialState = {
     characterList: [],
-    dataLoaded: false,
+    characterListLoading: false,
     detailCharacter: {
         thumbnail: {},
     },
-    metadata: {}
+    metadata: {},
+    metadataLoading: false
 }
 
 export const reducer = (oldState=initialState, action) => {
     switch (action.type) {
-        case "DATA_LOADING":
+        case actionTypes.CHARACTERS_LOADED:
             return {
                 ...oldState,
-                dataLoaded: false
+                characterList: action.payload,
+                characterListLoading: false
             }
-        case "DATA_LOADED":
+        case actionTypes.CHARACTERS_REQUESTED:
             return {
                 ...oldState,
-                dataLoaded: true
+                characterListLoading: true
             }
-        case "SELECT_DETAIL_CHARACTER":
+        case actionTypes.DETAIL_CHARACTER_SELECTED:
             return {
                 ...oldState,
                 detailCharacter: action.payload
+            }
+        case actionTypes.METADATA_LOADED:
+            return {
+                ...oldState,
+                metadata: action.payload,
+                metadataLoading: false
+            }
+        case actionTypes.METADATA_REQUESTED:
+            return {
+                ...oldState,
+                metadataLoading: true
             }
         default: 
             return oldState 

@@ -83,6 +83,7 @@ p {
 }
 
 .character .headshot-wrapper {
+  cursor: pointer;
   display: inline-block;
   width: 20%;
 }

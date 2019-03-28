@@ -1,20 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-// {
-//     real_name: "Wade Wilson",
-//     alias: "Deadpool", 
-//     power: "funny. crazy. can't get hurt or die.",
-//     headshot: "https://via.placeholder.com/300" 
-// },
+import actionTypes from "../../state/actionTypes";
 
-const propTypes = {
-    name: PropTypes.string.isRequired,
-    thumbnail: PropTypes.object.isRequired,
-    description: PropTypes.string.isRequired
-}
 
-class Character extends React.Component {
+class Character extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,6 +17,10 @@ class Character extends React.Component {
 
     imgClickHandler(e) {
         // need redux
+        this.props.dispatch({
+            type: actionTypes.DETAIL_CHARACTER_SELECTED,
+            payload: this.props
+        })
     }
 
     toggleExpand(e) {
@@ -80,8 +73,5 @@ class Character extends React.Component {
 // }
 
 // export default Character
-
-
-Character.propTypes = propTypes;
 
 export default Character;
