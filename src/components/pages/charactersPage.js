@@ -20,12 +20,13 @@ import { parseMarvelResponse } from '../../helpers';
 
 const CharactersPage = props => {
     useEffect(() => {
+        props.onFetchStart()
         fetch(`${config.marvelEndpointBase}/${config.marvelCharacterListEndpoint}`)
             .then(resp => resp.json())
             .then(props.onFetchResolve);
     }, [])
 
-    // fake custom effect hook
+    // custom hook ideas for effects...
     // useSocketSubscription(config.socketEndpoint);
 
     // useEffect(() => {
@@ -33,6 +34,9 @@ const CharactersPage = props => {
     //     // whatever you return will be called in the "clean-up" phase
     //     return () => unsubscribeFromThatThing()
     // }, [])
+
+    // useFetch(config.charactersURL, props.onFetchStart, props.onFetchResolve)
+
 
     return (
         <div className="page characters-page">

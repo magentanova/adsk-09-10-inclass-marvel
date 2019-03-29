@@ -8,7 +8,7 @@ import actionTypes from "../../../state/actionTypes";
 const useToggle = initialValue => {
     const [ value, setter ] = useState(initialValue);
     const eventHandler = () => setter(!value);
-    return [ value, eventHandler]
+    return [ value, eventHandler ]
 }
 
 const propTypes = {
@@ -21,6 +21,9 @@ const propTypes = {
 }    
 
 const Character = props => {
+
+    // useSocketSubscription(config.socketEndpoint)
+
     // get state
         // togglers
     const [ expanded, toggleExpanded ] = useToggle(false);
@@ -70,6 +73,8 @@ const Character = props => {
     )
 }
 Character.propTypes = propTypes;
+
+export const BareCharacter = Character;
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
