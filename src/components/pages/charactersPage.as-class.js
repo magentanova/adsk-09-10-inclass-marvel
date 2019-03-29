@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-// import { marvelEndpointBase, marvelCharacterListEndpoint }  from "../../config";
 import actionTypes from "../../state/actionTypes";
 import * as config from "../../config";
 import CharacterDetail from '../partials/characterDetail';
@@ -10,50 +9,36 @@ import ListOfCharacters from '../partials/listOfCharacters';
 import TopBar from '../partials/topBar';
 import { parseMarvelResponse } from '../../helpers';
 
-
-// const useSocketSubscription = (socketEndpoint) => {
-//     useEffect(() => {
-//         const socketId = socket.subscribe(socketEndpoint);
-//         return () => unsubscribe(socketId)
-//     })
-// }
-
-const CharactersPage = props => {
-    useEffect(() => {
+class CharactersPage extends React.Component {
+    componentDidMount() {
         fetch(`${config.marvelEndpointBase}/${config.marvelCharacterListEndpoint}`)
             .then(resp => resp.json())
-            .then(props.onFetchResolve);
-    }, [])
+            .then(this.props.onFetchResolve);
+        this.props.onFetchStart();        
+    }
 
-    // fake custom effect hook
-    // useSocketSubscription(config.socketEndpoint);
-
-    // useEffect(() => {
-    //     subscribeToSomething()
-    //     // whatever you return will be called in the "clean-up" phase
-    //     return () => unsubscribeFromThatThing()
-    // }, [])
-
-    return (
-        <div className="page characters-page">
-            <TopBar />
-            <div className="page-content">
-                <div className="panel left-panel" >
-                    <CharacterListMetadata 
-                        loaded={!props.metadataLoading} 
-                        />
-                    <ListOfCharacters 
-                        loaded={!props.characterListLoading} 
-                        />
-                </div>
-                <div className="panel right-panel" >
-                    <CharacterDetail 
-                        loaded={!props.characterListLoading} 
-                        />
+    render() {
+        return (
+            <div className="page characters-page">
+                <TopBar />
+                <div className="page-content">
+                    <div className="panel left-panel" >
+                        <CharacterListMetadata 
+                            loaded={!this.props.metadataLoading} 
+                            />
+                        <ListOfCharacters 
+                            loaded={!this.props.characterListLoading} 
+                            />
+                    </div>
+                    <div className="panel right-panel" >
+                        <CharacterDetail 
+                            loaded={!this.props.characterListLoading} 
+                            />
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 const mapStateToProps = state => {

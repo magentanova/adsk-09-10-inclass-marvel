@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import withLoader from '../hocs/withLoader';
-import Character from './character';
+import Character from './character/character';
 
 class ListOfCharacters extends React.Component {
 

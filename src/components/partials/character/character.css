@@ -1,0 +1,8 @@
+.highlighted {
+    background: #222;
+    color: white;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}

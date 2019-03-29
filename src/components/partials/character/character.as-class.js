@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import actionTypes from "../../state/actionTypes";
+import * as character_style from "./character.css";
+import actionTypes from "../../../state/actionTypes";
 
 class Character extends React.PureComponent {
     constructor(props) {
@@ -31,7 +32,7 @@ class Character extends React.PureComponent {
     render() {
         const characterExpandedClass = `character-expanded ${this.state.expanded ? "" : "hidden"}`
         return (
-            <div className="character" >
+            <div className="character wrapper" >
                 <div className="character-label">
                     <span>{this.props.name}</span>
                     <button onClick={this.toggleExpand} >{this.state.expanded ? "-" : "+"}</button>

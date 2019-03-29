@@ -1,0 +1,8 @@
+.hig-link {
+    text-decoration: none;
+    color: orange;
+}
+
+.wrapper {
+    display: inline-block;
+}
